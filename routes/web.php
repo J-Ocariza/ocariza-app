@@ -10,9 +10,13 @@ use App\Services\userServ;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['name' => 'ocariza-app']);
 
 });
+
+Route::get('/users', [usercontroller::class, 'index']);
+
+Route::resource('products', ProductController::class);
 
 Route::get('/testing', function(Request $request){
     $input = $request-> input('key');
@@ -51,14 +55,14 @@ Route::get('/test/route', function () {
 })->name('test-route');
 
 
-Route::middleware(['user-middleware'])->group(function(){
-    Route::get('route-middleware-group/first', function(Request $request){
-        echo 'first';
-    });
-    Route::get('route-middleware-group/second', function(Request $request){
-        echo 'second';
-    });
-});
+// Route::middleware(['user-middleware'])->group(function(){
+//     Route::get('route-middleware-group/first', function(Request $request){
+//         echo 'first';
+//     });
+//     Route::get('route-middleware-group/second', function(Request $request){
+//         echo 'second';
+//     });
+// });
 
 
 Route::controller(usercontroller::class)->group(function(){
@@ -74,9 +78,9 @@ Route::post('/token', function(Request $request){
     return $request->all();
 });
 
-Route::get('/userss', [usercontroller::class, 'index'])->Middleware('user-middleware');
+// Route::get('/users', [usercontroller::class, 'index'])->Middleware('user-middleware');
 
-Route::resource('products', ProductController::class);
+// Route::resource('products', ProductController::class);
 
 Route::get('/products-list', function(ProductService $productService){
     $data['products'] = $productService->listProducts();

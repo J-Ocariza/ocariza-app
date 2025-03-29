@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class usercontroller extends Controller
 {
     public function index(userServ $userServ){
-        return $userServ->listusers();
+        return view('users.index', ['users' =>$userServ->listUsers()]);
     }
 
     public function first(userServ $userServ){
